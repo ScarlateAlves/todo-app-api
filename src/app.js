@@ -20,7 +20,7 @@ app.use(bodyParse.json())
 
 
 usuariosController(app, bd);
-tarefaController(app, bd)
+//tarefaController(app, bd)
 
 
 
