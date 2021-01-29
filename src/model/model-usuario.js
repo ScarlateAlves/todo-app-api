@@ -1,3 +1,4 @@
+//fazer verificaçao dos dados
 module.exports = class Usuario {
     constructor(nome, email, senha) {
         this.nome = nome;
