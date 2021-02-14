@@ -1,73 +1,73 @@
-const { response } = require("express");
+module.exports = class tarefaDao {
+  constructor(bd) {
+    this.bd = bd;
+  }
+  listaTarefa() {
+    return new Promise((resolve, reject) => {
+      this.bd.all("SELECT * FROM TAREFAS;", (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+  }
 
-module.exports = class TarefaDao {
-    constructor(bd) {
-        this.bd = bd
-    }
+  buscaTarefa(parametro) {
+    return new Promise((resolve, reject) => {
+      this.bd.all(
+        "SELECT * FROM TAREFAS WHERE ID = ?;",
+        parametro,
+        (err, rows) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        }
+      );
+    });
+  }
 
-    listaTarefa() {
-        return Promise((resolve, reject) => {
-            let sql = 'SELECT * FROM TAREFAS'
-            this.bd.all(sql, (erro, mostra) => {
-                if (erro) {
-                    reject(erro)
-                } else {
-                    resolve(mostra)
-                }
-            })
-        })
-    }
-    mostraTarefa(tarefa) {
-        return Promise((reject, resolve) => {
-            let sql = 'SELECT * FROM TAREFAS WHERE ID = ?';
-            this.bd.run(sql, tarefa, (erro, mostra) => {
-                if (erro) {
-                    reject(erro)
-                } else {
-                    resolve(mostra);
-                }
-            })
-        })
+  adicionaTarefa(parametro) {
+    return new Promise((resolve, reject) => {
+      let sql =
+        "INSERT INTO TAREFAS (TITULO, DESCRICAO, STATUS, DATACRIACAO, ID_USUARIO) VALUES (?, ?, ?, ?,?)";
+      this.bd.run(sql, parametro, (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve("adicionado");
+        }
+      });
+    });
+  }
 
-    }
-    adicionaTarefa(tarefa) {
-        return Promise((resolve, reject) => {
-            let sql = 'INSERT INTO FROM TAREFAS (TITULO, DESCRICAO, STATUS) VALUES (?, ?, ?)';
-            this.bd.run(sql, tarefa, (erro, linha) => {
-                if (erro) {
-                    reject(erro)
-                } else {
-                    resolve("adicionado")
-                }
-            })
-        })
+  deletartarefa(parametro) {
+    return new Promise((resolve, reject) => {
+      let sql = "DELETE FROM TAREFAS WHERE ID = ?";
+      this.bd.run(sql, parametro, (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve("apagado");
+        }
+      });
+    });
+  }
 
-    }
-
-    modificaTarefa(tarefa) {
-        return Promise((reject, resolve) => {
-            let sql = 'UPDATE TAREFAS SET TITULO=COALESCE(?,TITULO), DESCRICAO=COALESCE(?,DESCRICAO), STATUS=COALESCE(?,STATUS) WHERE ID = ? '
-            this.bd.run(sql, tarefa, (erro) => {
-                if (erro) {
-                    reject(erro)
-                } else {
-                    resolve("modificado")
-                }
-            })
-        })
-    }
-
-    deletaTarefa(tarefa) {
-        return Promise((reject, resolve) => {
-            let sql = 'DELETE FROM TAREFAS WHERE ID=?'
-            this.bd.run(sql, tarefa, (erro) => {
-                if (erro) {
-                    reject(erro)
-                } else {
-                    resolve("apagado")
-                }
-            })
-
-        })
-    }
-}
+  alteratarefa(parametro) {
+    return new Promise((resolve, reject) => {
+      let sql =
+        "UPDATE TAREFAS SET TITULO= ?, DESCRICAO= ?, STATUS= ?, DATACRIACAO= ?, ID_USUARIO= ? WHERE ID = ?";
+      this.bd.run(sql, parametro, (erro, result) => {
+        if (erro) {
+          reject(erro);
+        } else {
+          resolve("alterado");
+        }
+      });
+    });
+  }
+};
