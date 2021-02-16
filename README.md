@@ -10,7 +10,7 @@
 <h2>Método GET</h2>
 <p>Para acessar todos os dados de usuario ou tarefas utilileze a requisção GET</p>
 <p>http://localhost:3001/usuario, http://localhost:3001/tarefas</p>
-<p>Para acessar um dado especifico, coloca a rota >http://localhost:3001/usuario/id e depois o identificador do usuario ou tarefa, assim terá um retorno do mesmo<p>
+<p>Para acessar um dado especifico, coloca a rota >http://localhost:3001/usuario/id e depois o identificador do usuario ou tarefa, assim terá um retorno do mesmo</p>
 
 <h2>Método POST</h2>
 <p>Para adicionar uma tarefa ou um usuario, se usa a rota especifica no metodo post e no corpo se adiciona os dados da reqisição conforme o exemplo abaixo da rota usuario</p>
